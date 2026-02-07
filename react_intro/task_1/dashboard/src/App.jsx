@@ -1,28 +1,33 @@
 import './App.css';
 import logo from './assets/holberton-logo.jpg';
+
 import Notifications from './Notifications';
 import { getCurrentYear, getFooterCopy } from './utils';
 
 function App() {
   return (
-    <>
+    <div className="App">
       <div className="root-notifications">
         <Notifications />
       </div>
 
-      <div className="App-header">
+      <header className="App-header">
         <img src={logo} alt="holberton logo" />
         <h1>School dashboard</h1>
-      </div>
+      </header>
 
-      <div className="App-body">
+      <main className="App-body">
         <p>Login to access the full dashboard</p>
-      </div>
+      </main>
 
-      <div className="App-footer">
-        <p>Copyright {getCurrentYear()} - {getFooterCopy(true)}</p>
-      </div>
-    </>
+      <footer className="App-footer">
+        <p>
+          <em>
+            Copyright {getCurrentYear()} - {getFooterCopy(true)}
+          </em>
+        </p>
+      </footer>
+    </div>
   );
 }
 

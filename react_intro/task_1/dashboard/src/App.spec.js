@@ -20,7 +20,7 @@ describe('App', () => {
     render(<App />);
     const year = new Date().getFullYear();
     expect(
-      screen.getByText(new RegExp(`Copyright ${year} - holberton School`, 'i'))
+      screen.getByText(new RegExp(`Copyright ${year} - Holberton School`, 'i'))
     ).toBeInTheDocument();
   });
 
