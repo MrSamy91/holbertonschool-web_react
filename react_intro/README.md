@@ -1,686 +1,336 @@
-# react_intro
-
-```bash
-# depuis react_intro
-cd task_0/dashboard
-
-# installe les dépendances (à faire une fois ou si package.json a changé)
-npm install
-
-# démarre le serveur Vite
-npm run dev
-
-
-http://localhost:5173/
-
-```
-
-````bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_0/dashboard# node testRunner.js
-✔ index.html existe
-✔ public/holberton-logo.jpg présent
-✔ public/favicon.ico présent
-✔ src/assets/holberton-logo.jpg présent
-✔ src/assets/close-button.png présent
-✔ public/vite.svg supprimé
-✔ src/assets/react.svg supprimé
-✔ src/index.css supprimé
-✔ src/assets/favicon.ico supprimé
-✔ index.html: titre exact
-✔ index.html: une seule balise icon (trouvé=1)
-✔ index.html: icon pointe vers /holberton-logo.jpg
-✔ App.jsx: alt="holberton logo"
-✔ App.jsx: h1 "School dashboard"
-✔ App.jsx: texte de login
-✖ App.jsx: footer avec l'année 2025
-✔ App.css: contient #e1003c
-✔ main.jsx: pas d'import de index.css
-✔ package.json: dépendance jest présente
-✔ package.json: bloc de config jest présent
-NOK
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_0/dashboard# node testRunner.js
-✔ index.html existe
-✔ public/holberton-logo.jpg présent
-✔ public/favicon.ico présent
-✔ src/assets/holberton-logo.jpg présent
-✔ src/assets/close-button.png présent
-✔ public/vite.svg supprimé
-✔ src/assets/react.svg supprimé
-✔ src/index.css supprimé
-✔ src/assets/favicon.ico supprimé
-✔ index.html: titre exact
-✔ index.html: une seule balise icon (trouvé=1)
-✔ index.html: icon pointe vers /holberton-logo.jpg
-✔ App.jsx: alt="holberton logo"
-✔ App.jsx: h1 "School dashboard"
-✔ App.jsx: texte de login
-✔ App.jsx: footer avec l'année 2025 (ou {year}/getFullYear())
-✔ App.css: contient #e1003c
-✔ main.jsx: pas d'import de index.css
-✔ package.json: dépendance jest présente
-✔ package.json: bloc de config jest présent
-OK
-```
-
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_0/dashboard# npm run dev
-
-> dashboard@0.0.0 dev
-> vite
-
-
-  VITE v5.4.20  ready in 831 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
-```
-
-![alt text](image.png)
-
-
-# Task1
-```bash
-npm test
-```
-
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_0/dashboard# npm test
-
-> dashboard@0.0.0 test
-> jest --watchAll=false
+## Resources
 
- PASS  src/App.spec.js (34.853 s)
-  App (Task 0)
-    ✓ renders the <h1> with text "School dashboard" (70 ms)
-    ✓ renders body and footer texts in the right sections (9 ms)
-    ✓ renders the Holberton logo image (16 ms)
+**Read or watch**:
 
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-Snapshots:   0 total
-Time:        47.468 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_0/dashboard#
+*   [React Official Website](/rltoken/ng1aulL-v_eM2SrXqdt5Ew "React Official Website")
+*   [Getting started with React](/rltoken/vf5E63P5_eWDdH4RoJ_EGA "Getting started with React")
+*   [React overview](/rltoken/0BH1LeFWPgxgUM_rHr2ZHw "React overview")
+*   [Vite | docs](/rltoken/Es91l_LZph3CPGKUkyLg6w "Vite | docs")
+*   [React Developer Tools](/rltoken/UBA8wF56BAJ_Iq62pEcnRw "React Developer Tools")
+*   [React Testing Library](/rltoken/uLz30N2zhKRkf1RgJgbUlQ "React Testing Library")
+*   [Jest Matchers](/rltoken/jGaoSGNpAeMFkhJZbrQBWw "Jest Matchers")
+*   [Queries In Testing Library](/rltoken/EHot1FV9AFUA3cI62RDljQ "Queries In Testing Library")
+*   [mocking functions in testing](/rltoken/bRUWA6nIqTLmrnmXtjPFEQ "mocking functions in testing")
+*   [Handling user events in RTL](/rltoken/cKIZtsDOpBol0RXZOavIPQ "Handling user events in RTL")
+*   [dangerouslySetInnerHTML in React](/rltoken/g9giDQBlw2Y4Fjy2zY2JyA "dangerouslySetInnerHTML in React")
+*   [Deploying React App to github pages](/rltoken/qXtYAbO36vfL8BsFGtEI1Q "Deploying React App to github pages")
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_0/dashboard# npm test
+## Learning Objectives
 
-> dashboard@0.0.0 test
-> jest --watchAll=false
+At the end of this project, you are expected to be able to [explain to anyone](/rltoken/eQsQZtRGiSEdtfMHUjg-1A "explain to anyone"), **without the help of Google**:
 
- PASS  src/App.spec.js (34.009 s)
-  App (Task 0)
-    ✓ renders the <h1> with text "School dashboard" (66 ms)
-    ✓ renders body/footer texts and the logo image (16 ms)
+*   How to create a basic Javascript application with React
+*   How to use the build tool `vite` to start developing quickly with React
+*   What JSX is and how it works.
+*   How to add inline styles in React.
+*   How to implement simple forms in React.
+*   How to implement unit tests using React Testing Library
+*   How to use the React Developer Tools to debug your code
+*   How to deploy a react application to GitHub pages.
 
-Test Suites: 1 passed, 1 total
-Tests:       2 passed, 2 total
-Snapshots:   0 total
-Time:        47.808 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_0/dashboard#
-```
+## Requirements
 
+*   All your files will be interpreted/compiled on Ubuntu 20.04 LTS using `node 20.x.x` or greater and `npm 10.x.x`
+*   Allowed editors: `vi`, `vim`, `emacs`, `Visual Studio Code`
+*   All your files should end with a new line
+*   A `README.md` file, at the root of the project’s folder and each task’s folder, is mandatory
+*   Install Jest globally: `npm install -g jest`
 
-# Task2
+## Tasks
 
-```bash
+### 1.
 
-```
+**Create a basic app named `dashboard` using the build tool `vite` in your `task_0` directory**
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_1/dashboard# npm install
+You will need a **_favicon_**, the **_Holberton logo_**, and a **_close button image_**. Download these files and place the logo and button images in the `src/assets` folder, and put the favicon in the `public` folder.
 
-up to date, audited 542 packages in 6s
+**holberton-logo.jpg**
 
-82 packages are looking for funding
-  run `npm fund` for details
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2019/11/175b85183ecedb529e14.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=bde1fe8e7cd2f0d4e742f039e3a2c09b36b8ab92bdc5cd28242e4f0a9de27070)
 
-2 moderate severity vulnerabilities
+**favicon.ico**
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/misc/2019/11/e240f8157634d33a9757.ico?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=bea0a87f2b1dd794c8104ecc250d3a656bec8f513dda27a5d654fda12f6fba76)
 
-Run `npm audit` for details.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_1/dashboard# npm run dev
+**close-button.png**
 
-> dashboard@0.0.0 dev
-> vite
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/2d96723b038e2e92001b59f72c0418a8595802aa.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e16fe3de52edc2ac41e4c1b75db9f73b76d53a78b6197799464370ec42eb34c2)
 
-Re-optimizing dependencies because vite config has changed
+**Remove the following unused files:**
 
-  VITE v5.4.20  ready in 691 ms
+*   `index.css`
+*   `public/vite.svg` and `src/assets/react.svg`
 
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
+**Update index.html file:**
 
-```
-![alt text](image-1.png)
+*   Change the title of the document to be `Holberton - School dashboard`
+*   Change the icon to be Holberton’s logo
 
+Set up the following files in the project root folder:
 
-# Task3
+*   `setupTests.js`:
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_2/dashboard# npm install
+    **Click to expand/hide:**
+    import '@testing-library/jest-dom';
 
-up to date, audited 542 packages in 8s
+*   `.babelrc` file:
 
-82 packages are looking for funding
-  run `npm fund` for details
+    **Click to expand/hide:**
+    {
+        "presets": [
+            "@babel/preset-env",
+            ["@babel/preset-react", { "runtime": "automatic" }]
+        ]
+    }
 
-2 moderate severity vulnerabilities
+*   `fileTransformer.js` file:
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+    **Click to expand/hide:**
+    `import path from 'path';`
 
-Run `npm audit` for details.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_2/dashboard# npm run dev
+    ``export default {     process(sourceText, sourcePath, options) {         return {             code: `module.exports = ${JSON.stringify(path.basename(sourcePath))};`,         };     }, };``
 
-> dashboard@0.0.0 dev
-> vite
+*   Configure Jest at the end of your `package.json`:
 
-Re-optimizing dependencies because vite config has changed
+    **Click to expand/hide:**
+    "jest": {
+        "testEnvironment": "jsdom",
+        "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js",
+      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ]
+    }
 
-  VITE v5.4.20  ready in 907 ms
+*   Make sure to install the following packages:
 
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
+    *   `@babel/preset-env`
+    *   `@babel/preset-react`
+    *   `identity-obj-proxy`
+    *   `@testing-library/jest-dom`
+    *   `@testing-library/react`
+    *   `jest-environment-jsdom`
+    *   `@testing-library/user-event`
 
+**in `task_0/dashboard/src/App.jsx`, create a function `App` that returns:**
 
-```
-![alt text](image-2.png)
+*   A `div` with a class `App-header` containing the Holberton logo with `alt` text: `holberton logo`, and a `h1` with the text `School dashboard` (color: `#e1003c`)
+*   A `div` with a class `App-body` containing a paragraph with the text `Login to access the full dashboard`
+*   A `div` with a class `App-footer` containing a paragraph with the text `Copyright {the current year e.g: 2025} - holberton School`
 
-# Task4
+**Ad the CSS styles to the `App.css` to match the design in the screenshot below:**
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_2/dashboard# npm test
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/d3aca29c0fa33276ffa9de0d8611cd331511997b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=3e0bdc332f291750aeb1b89d280f5de9d434b319574294d134383d3c0f4a3a9c)
 
-> dashboard@0.0.0 test
-> jest --watchAll=false
+**Requirements:**
 
- PASS  src/App.spec.js (35.157 s)
-  App (Task 2) - sign in form
-    ✓ renders two input elements (email and password) (48 ms)
-    ✓ renders two labels with texts "Email" and "Password" (12 ms)
-    ✓ renders a button with text OK (70 ms)
+*   Push your`package.json`and Make sure the `jest` package is included.
+*   Use the same names for the downloadable images (`holberton-logo.jpg` , `close-button.png`, `favicon.ico`).
+*   Ensure the lint check passes without errors (hint: add `Jest` as the test runner in the ESLint configuration file).
+*   Make sure the app’s style matches the screenshot.
 
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-Snapshots:   0 total
-Time:        51.633 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_rea
-ct/react_intro/task_2/dashboard#
 
-```
 
-# Task5
+### 2.
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_2/dashboard# npm run dev
+Testing is a crucial part in the web development. in React projects, you’ll use the `React Testing Library` and `Jest` as a test runner.
 
-> dashboard@0.0.0 dev
-> vite
+Create a new file named `App.spec.js` inside the src folder, and add the following imports:
 
+*   `render` and `screen` from `@testing-library/react`
+*   The `App` component
 
-  VITE v5.4.20  ready in 415 ms
+Now that all dependencies are imported, let’s write the first tests:
 
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
-```
+*   Write a test to check if the `h1` element with the text `School Dashboard` is rendered.
+*   Write a test to check that the text content within the 2 `p` elements in the app-body and app-footer divs matches the text shown in the previous task screenshot.
+*   Write a test to check if an `img` element is rendered.
 
+**_Tips:_**
 
-# Task6
+*   Use a single query to check for the `<h1>` element and its text content.
+*   Match the `<img>` element using its `alt` attribute’s text content to ensure your test is robust.
+*   Ignore case sensitivity in your assertions to improve the coverage and reliability of your tests.
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_3/dashboard# npm test
 
-> dashboard@0.0.0 test
-> jest --watchAll=false
 
- PASS  src/utils.spec.js (9.627 s)
- PASS  src/App.spec.js (18.77 s)
+### 3.
 
-Test Suites: 2 passed, 2 total
-Tests:       7 passed, 7 total
-Snapshots:   0 total
-Time:        40.462 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_3/dashboard#
-```
+**Using your code from the previous task, create a new file `task_1/dashboard/src/utils.js`:**
 
-# Task7
+*   Create a function `getCurrentYear` that will return the current year.
+*   Create a function `getFooterCopy`:
+    *   It accepts one argument `isIndex`(boolean).
+    *   When true, the function should return `Holberton School`, otherwise it’ll return `Holberton School main dashboard`
+*   Update the `<div>` App-footer in `App.jsx` to use these two functions.
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_3/dashboard# npm test
 
-> dashboard@0.0.0 test
-> jest --watchAll=false
 
- PASS  src/App.spec.js (11.884 s)
- PASS  src/Notifications.spec.js (12.377 s)
- PASS  src/utils.spec.js (30.995 s)
+**Add a new file `task_1/dashboard/src/Notifications.jsx`, and create a Notifications function:**
 
-Test Suites: 3 passed, 3 total
-Tests:       11 passed, 11 total
-Snapshots:   0 total
-Time:        26.541 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_3/dashboard#
+*   The function should return a `<div>` with the class `notifications`
+*   The div should contain a paragraph with the text `Here is the list of notifications`
 
+**Create a new file `task_1/dashboard/src/Notifications.css` where you add the necessary styles to match the design shown in the provided screenshot.**
 
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_
-intro/task_3/dashboard# npm install --save-dev @babel/core @babel/preset-react @babel/register
 
-added 20 packages, and audited 562 packages in 4s
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/4fb11d71985c3e9053301f38f4da71ff5de34649.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e5ac0bcb0b58a477cbeffbe2ad80c25ee2b7f758d3f8feb63f5bcb4a0de7abe6)
 
-82 packages are looking for funding
-  run `npm fund` for details
 
-2 moderate severity vulnerabilities
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+**Render the Notifications component:**
 
-Run `npm audit` for details.
+*   Update `App.jsx` :
 
+    *   Render the new `Notifications` component and wrap it inside a `div` with class `root-notifications`
+*   Use the React browser extension to check if the `Notifications` component is nested correctly as a child of the `App` component.
 
 
+**Requirements:**
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_3/dashboard# npm test -- src/Notifications.spec.js --watchAll=false
+*   The new `Notifications` component should be implemented as a child within `App` in `App.jsx`.
+*   Ensure the lint check passes with no errors.
 
-> dashboard@0.0.0 test
-> jest --watchAll=false src/Notifications.spec.js --watchAll=false
 
- PASS  src/Notifications.spec.js (28.959 s)
-  Notifications component
-    ✓ renders the notifications title (46 ms)
-    ✓ renders the close button (64 ms)
-    ✓ renders 3 list items (23 ms)
-    ✓ logs message when close button is clicked (15 ms)
 
-Test Suites: 1 passed, 1 total
-Tests:       4 passed, 4 total
-Snapshots:   0 total
-Time:        41.098 s, estimated 48 s
-Ran all test suites matching /src\/Notifications.spec.js/i.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_3/dashboard#
+### 4.
 
+**Using your code from the previous task, in `task_2/dashboard/src/App.jsx` under the paragraph with text `Login to access the full dashboard`:**
 
+*   Add a `label` and an `input`element for email.
+*   Add a `label` and an `input` element for password.
+*   Add a `button` element with the text “OK”
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_3/dashboard# npm test -- src/Notifications.spec.js --watchAll=false
+**Requirements:**
 
-> dashboard@0.0.0 test
-> jest --watchAll=false src/Notifications.spec.js --watchAll=false
+*   When the user clicks on a label element, the corresponding input field should be focused
+*   No lint errors should appear
 
- PASS  src/Notifications.spec.js (27.04 s)
-  Notifications component (Task 7)
-    ✓ renders the notifications title (case-insensitive) (50 ms)
-    ✓ contains a Close button inside the notifications container (64 ms)
-    ✓ renders exactly 3 list items as notifications (18 ms)
-    ✓ clicking the Close button logs the expected message (25 ms)
 
-Test Suites: 1 passed, 1 total
-Tests:       4 passed, 4 total
-Snapshots:   0 total
-Time:        40.929 s
-Ran all test suites matching /src\/Notifications.spec.js/i.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_3/dashboard#
-```
 
-# Task8
+### 5.
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4# cd dashboard/
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard# npm install gh-pages --save-dev
+Let’s test the new form.
 
-added 33 packages, and audited 595 packages in 5s
+Update the `App.spec.js` file to add the following tests:
 
-88 packages are looking for funding
-  run `npm fund` for details
+*   Check whether the `App` component renders 2 input elements.
+*   Check whether the `App` component renders 2 label elements with the text `Email` and `Password`.
+*   Check whether the `App` component renders a button with the text ‘OK’
 
-2 moderate severity vulnerabilities
+**Tips:**
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+*   Use `regex` to ensure case-insensitive matching.
 
-Run `npm audit` for details.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard#
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard# npm install
 
-up to date, audited 595 packages in 2s
+### 6.
 
-88 packages are looking for funding
-  run `npm fund` for details
+**Update `task_2/dashboard/src/utils.js`:**
 
-2 moderate severity vulnerabilities
+*   Create a function `getLatestNotification`:
+    *   This function should return the following string : `<strong>Urgent requirement</strong> - complete by EOD`
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+**Update `task_2/dashboard/src/Notifications.jsx` in the Notifications div:**
 
-Run `npm audit` for details.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard# npm run deploy
+*   Add a button element:
+    *   Style the button inline so it appears on the right side of the notifications box. (without using the CSS file):
+    *   Add the attribute `aria-label` with the value `Close`.
+    *   When the user clicks the button, it should log `Close button has been clicked` to the console.. -Add an `<img>` tag inside the button:
+    *   The `<img>` should import the close-icon.png image.
+*   Add an unordered list `<ul>` after the paragraph:
+    *   The list should contain the following items:
+        *   First item: Default priority with the text `New course available`
+        *   Second item: Urgent priority with the text `New resume available`
+        *   Last item: Display the text returned by `getLatestNotification` using `dangerouslySetInnerHTML`.
+*   Add a data attribute for priority:
+    *   Assign a priority level to the first and second list items using a `data-priority` attribute.
 
-> dashboard@0.0.0 predeploy
-> npm run build
+**In `task_2/dashboard/src/Notifications.css`:**
 
+*   Add CSS styles to match the screenshot below.
 
-> dashboard@0.0.0 build
-> vite build
+**Requirements:**
 
-vite v5.4.20 building for production...
-✓ 31 modules transformed.
-dist/index.html                            0.85 kB │ gzip:  0.36 kB
-dist/assets/holberton-logo-CIW0R4GT.jpg   23.64 kB
-dist/assets/index-Dblg1SDK.css             1.43 kB │ gzip:  0.62 kB
-dist/assets/index-CDO-CCUI.js            146.74 kB │ gzip: 49.08 kB
-✓ built in 1.80s
+*   No lint errors should show up
+*   Your app should look like the following screenshot:
 
-> dashboard@0.0.0 postbuild
-> cp dist/index.html dist/404.html || copy dist\index.html dist\404.html
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/676bb04908adbf59c1f5269243eac55aa4841ee1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=f8f76d188ba49bfca35b86e367e5628c5d6b5137e72775832632958b45ba0270)
 
 
-> dashboard@0.0.0 deploy
-> gh-pages -d dist
 
-Published
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard#
+### 7.
 
+**Update `task_3/dashboard/src/utils.spec.js`:**
 
-```
+Use Jest to test the following functions to ensure they return the desired outputs:
 
-```bash
-# 1) Crée/écrase vite.config.js avec la base correcte
-echo "import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+*   Write a test to check that the function `getCurrentYear` returns the correct year (be careful to not create a time bomb).
+*   Write a test to check that `getFooterCopy` returns the correct string when the argument is true or false.
+*   Write a test to check the returned string form `getLatestNotification`
 
-export default defineConfig({
-  plugins: [react()],
-  base: '/holbertonschool-web_react/'
-})" > vite.config.js
 
-# 2) Rebuild et déploie sur GitHub Pages
-npm run build
-npm run deploy
 
-# 3) Crée le fichier avec l'URL demandée
-echo "https://SDINAHET.github.io/holbertonschool-web_react" > holberton-dashboard.txt
+### 8.
 
-# 4) Commit et push
-git add vite.config.js holberton-dashboard.txt
-git commit -m "Add vite.config.js, deploy site, and add holberton-dashboard.txt"
-git push
-```
+**In `task_3/dashboard/src/Notifications.spec.js`** create the following tests:
 
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard# npm install
-npm run install:browsers   # (si demandé par le correcteur)
-npm run deploy
+*   Add a test to check the existence of the notifications title `Here is the list of notifications` .
+*   Add a test to check the existence of the `button` element in the notifications.
+*   Verify that there are 3 `li` elements as notifications rendered, as shown in the shared screenshot .
+*   Check whether clicking the close button logs `Close button has been clicked` to the console.
 
-up to date, audited 595 packages in 2s
+**Tips:**
 
-88 packages are looking for funding
-  run `npm fund` for details
+\-Take a look at how RTL (React Testing Library) handles user events. - Use the `fireEvent` API to simulate a click event for the button.
 
-2 moderate severity vulnerabilities
+**Requirements:**
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+*   Make sure your tests ignore case to ensure better test coverage.
 
-Run `npm audit` for details.
 
-> dashboard@0.0.0 install:browsers
-> npx playwright install chromium-headless-shell
 
-Need to install the following packages:
-playwright@1.55.1
-Ok to proceed? (y) y
+### 9.
 
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║ WARNING: It looks like you are running 'npx playwright install' without first ║
-║ installing your project's dependencies.                                       ║
-║                                                                               ║
-║ To avoid unexpected behavior, please install your dependencies first, and     ║
-║ then run Playwright's install command:                                        ║
-║                                                                               ║
-║     npm install                                                               ║
-║     npx playwright install                                                    ║
-║                                                                               ║
-║ If your project does not yet depend on Playwright, first install the          ║
-║ applicable npm package (most commonly @playwright/test), and                  ║
-║ then run Playwright's install command to download the browsers:               ║
-║                                                                               ║
-║     npm install @playwright/test                                              ║
-║     npx playwright install                                                    ║
-║                                                                               ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
-Downloading Chromium Headless Shell 140.0.7339.186 (playwright build v1193) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1193/chromium-headless-shell-linux.zip
-104.3 MiB [====================] 100% 0.0s
-Chromium Headless Shell 140.0.7339.186 (playwright build v1193) downloaded to /root/.cache/ms-playwright/chromium_headless_shell-1193
-Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
-2.3 MiB [====================] 100% 0.0s
-FFMPEG playwright build v1011 downloaded to /root/.cache/ms-playwright/ffmpeg-1011
+Deploy your application to GitHub Pages using the `gh-pages` branch.
 
-> dashboard@0.0.0 predeploy
-> npm run build
+Add the link to your deployed web page within a new file in the `task_4` folder and name it `holberton-dashboard.txt`
 
+**Requirement:**
 
-> dashboard@0.0.0 build
-> vite build
+*   Your web page `Holberton dashboard` must match the design shown in the provided screenshot.
 
-vite v5.4.20 building for production...
-✓ 36 modules transformed.
-dist/index.html                            0.58 kB │ gzip:  0.36 kB
-dist/assets/holberton-logo-CIW0R4GT.jpg   23.64 kB
-dist/assets/index-Dblg1SDK.css             1.43 kB │ gzip:  0.62 kB
-dist/assets/index-WuqLIXZM.js            147.55 kB │ gzip: 49.22 kB
-✓ built in 1.45s
 
-> dashboard@0.0.0 postbuild
-> cp dist/index.html dist/404.html || copy dist\index.html dist\404.html
 
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/e9eda297e77bfc0bde1f5252f2e778df55fef2c8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=6a16d58def6d89130f14aa0ced609ddf729faffab4c1872e0a2e4d05b47c491c)
 
-> dashboard@0.0.0 deploy
-> gh-pages -d dist
 
-Published
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard#
 
+### 10.
 
+Let’s restructure the project:
 
+*   Create folder structure:
+    *   Move every file related to the `App` into an `App` folder.
+    *   Move every file related to the `Notifications` into a `Notifications` folder.
+    *   Move every file related to the utility functions into a `utils` folder.
+    *   Move every asset file (like images, logos) into an `assets` folder.
+*   Set up the favicon.ico:
+    *   Place the favicon.ico in the `public` folder.
 
+**Requirements:**
 
+*   Make sure to fix the import statements in your files, so all tests run successfully.
+*   The `favicon.ico` should be displayed on the React application browser tab.
+*   Your React application should look similar to the one shown in the screenshot below.
+*   No lint errors.
 
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard# # 1. Le close button
-grep -R 'close-button.png' -n src
-grep -R 'alt="close"' -n src/Notifications.jsx
 
-# 2. Le logo Holberton
-grep -R 'holberton-logo.jpg' -n src
-grep -R 'alt="holberton logo"' -n src/App.jsx
 
-# 3. Le favicon en chemin relatif dans index.html
-grep -n 'rel="icon"' index.html
-# → doit afficher href="favicon.ico"
-src/Notifications.jsx:4:import closeButton from './assets/close-button.png';   // <-- nom attendu
-36:        <img src={closeIcon} alt="close" style={{ width: '10px', height: '10px' }} />
-43:        <img src={closeButton} alt="close" width="12" height="12" />
-src/App.jsx:2:import logo from "./assets/holberton-logo.jpg";
-14:        <img src={logo} alt="holberton logo" />
-5:    <!-- <link rel="icon" href="favicon.ico" /> -->
-6:    <link rel="icon" href="/holbertonschool-web_react/favicon.ico" />
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/t
-ask_4/dashboard#
+**Screenshot at this level:**
 
 
-
-
-```
-https://sdinahet.github.io/holbertonschool-web_react/
-
-![alt text](image-3.png)
-
-
-# Task9
-
-```bash
-task_5/dashboard/
-├─ public/
-│  └─ favicon.ico
-├─ src/
-│  ├─ App/
-│  │  ├─ App.jsx
-│  │  └─ App.css
-│  ├─ Notifications/
-│  │  ├─ Notifications.jsx
-│  │  └─ Notifications.css
-│  ├─ utils/
-│  │  ├─ utils.js
-│  │  └─ utils.spec.js
-│  ├─ assets/
-│  │  ├─ holberton-logo.jpg
-│  │  └─ close-button.png
-│  ├─ main.jsx
-│  └─ index.css (if you have one)
-├─ package.json
-└─ vite.config.js
-
-
-```
-
-```bash
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/task_
-5/dashboard# npm test -- --watchAll=false --verbose
-
-> dashboard@0.0.0 test
-> jest --watchAll=false --watchAll=false --verbose
-
- PASS  src/favicon.spec.js (22.69 s)
-  Favicon link in index.html
-    ✓ declares <link rel="icon" ...> that points to favicon.ico (150 ms)
-
- PASS  src/App/App.spec.js (25.522 s)
-  App (Task 2) - sign in form
-    ✓ renders two input elements (email and password) (138 ms)
-    ✓ renders two labels with texts "Email" and "Password" (18 ms)
-    ✓ renders a button with text OK (59 ms)
-
- PASS  src/utils/utils.spec.js (22.094 s)
-  Utils functions
-    ✓ getCurrentYear returns the current year (94 ms)
-    ✓ getFooterCopy returns correct string when argument is true (1 ms)
-    ✓ getFooterCopy returns correct string when argument is false
-    ✓ getLatestNotification returns the correct string
-
- FAIL  src/staticAssets.spec.js
-  ● Test suite failed to run
-
-    Cannot find module './App' from 'src/staticAssets.spec.js'
-
-      1 | import React from "react";
-      2 | import { render, screen, within } from "@testing-library/react";
-    > 3 | import App from "./App";
-        | ^
-      4 |
-      5 | describe("Static images (logo + close button)", () => {
-      6 |   test("renders the Holberton logo image", () => {
-
-      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
-      at Object.require (src/staticAssets.spec.js:3:1)
-
- PASS  src/Notifications/Notifications.spec.js (32.504 s)
-  Notifications component (Task 7)
-    ✓ renders the notifications title (case-insensitive) (125 ms)
-    ✓ contains a Close button inside the notifications container (47 ms)
-    ✓ renders exactly 3 list items as notifications (12 ms)
-    ✓ clicking the Close button logs the expected message (15 ms)
-
-Test Suites: 1 failed, 4 passed, 5 total
-Tests:       12 passed, 12 total
-Snapshots:   0 total
-Time:        50.317 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/task_
-5/dashboard#
-
-
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/task_
-5/dashboard# npm test -- --watchAll=false --verbose
-
-> dashboard@0.0.0 test
-> jest --watchAll=false --watchAll=false --verbose
-
- PASS  src/utils/utils.spec.js (10.659 s)
-  Utils functions
-    ✓ getCurrentYear returns the current year (126 ms)
-    ✓ getFooterCopy returns correct string when argument is true (1 ms)
-    ✓ getFooterCopy returns correct string when argument is false
-    ✓ getLatestNotification returns the correct string (1 ms)
-
- PASS  src/favicon.spec.js (22.561 s)
-  Favicon link in index.html
-    ✓ declares <link rel="icon" ...> that points to favicon.ico (96 ms)
-
- PASS  src/staticAssets.spec.js (21.353 s)
-  Static images (logo + close button)
-    ✓ renders the Holberton logo image (223 ms)
-    ✓ renders the Close button image inside the Notifications close button (51 ms)
-
- PASS  src/App/App.spec.js (18.31 s)
-  App (Task 2) - sign in form
-    ✓ renders two input elements (email and password) (169 ms)
-    ✓ renders two labels with texts "Email" and "Password" (18 ms)
-    ✓ renders a button with text OK (74 ms)
-
- PASS  src/Notifications/Notifications.spec.js (18.727 s)
-  Notifications component (Task 7)
-    ✓ renders the notifications title (case-insensitive) (224 ms)
-    ✓ contains a Close button inside the notifications container (127 ms)
-    ✓ renders exactly 3 list items as notifications (15 ms)
-    ✓ clicking the Close button logs the expected message (18 ms)
-
-Test Suites: 5 passed, 5 total
-Tests:       14 passed, 14 total
-Snapshots:   0 total
-Time:        31.312 s, estimated 33 s
-Ran all test suites.
-root@UID7E:/mnt/d/Users/steph/Documents/5ème_trimestre/holbertonschool-web_react/react_intro/task_
-5/dashboard#
-
-```
-![alt text](image-4.png)
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2024/9/b03d7cb2ddc658c92838f7bfe1b9982ba4976032.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20250423%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20250423T085908Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=43e0238c1c59d5676c919159bd44c633b5622009249cb49039fda8cbf07c2fda)

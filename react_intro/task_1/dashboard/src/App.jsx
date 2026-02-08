@@ -1,35 +1,26 @@
-// react_intro/task_1/dashboard/src/App.jsx
-import React from 'react';
-import './App.css';
-import logo from './assets/holberton-logo.jpg';
+import "./App.css";
+import logo from "./assets/holberton-logo.jpg";
+import { getCurrentYear, getFooterCopy } from "./utils";  // <= il manque ça chez toi
+import Notifications from "./Notifications";               // <= il manque ça aussi
 
-import Notifications from './Notifications';
-import { getCurrentYear, getFooterCopy } from './utils';
-
-export default function App() {
+function App() {
   return (
-    <div className="App">
-      {/* Panneau Notifications, enfant direct de App (comme demandé) */}
+    <>
       <div className="root-notifications">
         <Notifications />
       </div>
-
-      <header className="App-header">
-        <img src={logo} alt="holberton logo" className="logo" />
+      <div className="App-header">
+        <img src={logo} alt="holberton logo" />
         <h1>School dashboard</h1>
-      </header>
-
-      <main className="App-body">
+      </div>
+      <div className="App-body">
         <p>Login to access the full dashboard</p>
-      </main>
-
-      <footer className="App-footer">
-        <p>
-          <em>
-            Copyright {getCurrentYear()} - {getFooterCopy(true)}
-          </em>
-        </p>
-      </footer>
-    </div>
+      </div>
+      <div className="App-footer">
+        <p>Copyright {getCurrentYear()} - {getFooterCopy(false)}</p>
+      </div>
+    </>
   );
 }
+
+export default App;

@@ -1,13 +1,7 @@
-import React from 'react';
 import "./App.css";
-// import logo from "./assets/holberton-logo.jpg";
-// import { getCurrentYear, getFooterCopy } from "./utils";
-import {
-  getCurrentYear,
-  getFooterCopy,
-} from '../utils/utils.js';         // ← important
+import logo from "../assets/holberton-logo.jpg";
+import { getCurrentYear, getFooterCopy } from "../utils/utils";
 import Notifications from "../Notifications/Notifications";
-import holbertonLogo from '../assets/holberton-logo.jpg';
 
 function App() {
   return (
@@ -15,13 +9,10 @@ function App() {
       <div className="root-notifications">
         <Notifications />
       </div>
-
       <div className="App-header">
-        {/* <img src={logo} alt="holberton logo" /> */}
-        <img src={holbertonLogo} alt="holberton logo" />
+        <img src={logo} alt="holberton logo" />
         <h1>School dashboard</h1>
       </div>
-
       <div className="App-body">
         <p>Login to access the full dashboard</p>
 
@@ -34,15 +25,10 @@ function App() {
 
           <button>OK</button>
         </div>
-      </div>
 
+      </div>
       <div className="App-footer">
-        {/* <p>Copyright {getCurrentYear()} Holberton School main dashboard</p> */}
-        <p>Copyright {getCurrentYear()} {getFooterCopy(false)}</p>
-        {/* SANS tiret */}
-        {/* <p>
-          Copyright {getCurrentYear()} {getFooterCopy(false)}
-        </p> */}
+        <p>Copyright {getCurrentYear()} - {getFooterCopy(false)}</p>
       </div>
     </>
   );
