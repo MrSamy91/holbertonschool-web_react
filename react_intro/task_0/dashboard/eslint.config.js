@@ -17,7 +17,7 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: {
         ...globals.browser,
-        ...globals.jest,
+        ...globals.jest, // ✅ ajoute les globals Jest (test, expect, etc.)
       },
       parserOptions: {
         ecmaVersion: "latest",

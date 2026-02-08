@@ -1,9 +1,25 @@
+// react_intro/task_1/dashboard/src/Notifications.jsx
+import React from 'react';
 import './Notifications.css';
 import closeIcon from './assets/close-button.png';
+// Notifications.jsx
+// import closeIcon from './assets/close-icon.png'; // <-- nom exact
 import { getLatestNotification } from './utils';
 
-function Notifications() {
+// export default function Notifications() {
+//   return (
+//     <div className="notification-items">
+//       <p>Here is the list of notifications</p>
+//     </div>
+//   );
+// }
+
+export default function Notifications() {
+  const latest = getLatestNotification();
+  const latestHtml = typeof latest === 'string' ? { __html: latest } : latest;
+
   const handleClose = () => {
+    // eslint-disable-next-line no-console
     console.log('Close button has been clicked');
   };
 
@@ -14,12 +30,13 @@ function Notifications() {
         onClick={handleClose}
         style={{
           position: 'absolute',
-          top: 8,
+          top: 6,
           right: 8,
           background: 'transparent',
           border: 'none',
           cursor: 'pointer',
-          padding: 0
+          padding: 4,
+          lineHeight: 0
         }}
       >
         <img src={closeIcon} alt="close" style={{ width: 12, height: 12 }} />
@@ -30,10 +47,8 @@ function Notifications() {
       <ul>
         <li data-priority="default">New course available</li>
         <li data-priority="urgent">New resume available</li>
-        <li data-priority="urgent" dangerouslySetInnerHTML={{ __html: getLatestNotification() }} />
+        <li data-priority="urgent" dangerouslySetInnerHTML={latestHtml} />
       </ul>
     </div>
   );
 }
-
-export default Notifications;

@@ -1,18 +1,21 @@
+// react_intro/task_1/dashboard/src/App.jsx
+import React from 'react';
 import './App.css';
 import logo from './assets/holberton-logo.jpg';
 
 import Notifications from './Notifications';
 import { getCurrentYear, getFooterCopy } from './utils';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
+      {/* Panneau Notifications, enfant direct de App (comme demandé) */}
       <div className="root-notifications">
         <Notifications />
       </div>
 
       <header className="App-header">
-        <img src={logo} alt="holberton logo" />
+        <img src={logo} alt="holberton logo" className="logo" />
         <h1>School dashboard</h1>
       </header>
 
@@ -30,5 +33,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
