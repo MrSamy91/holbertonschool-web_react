@@ -1,34 +1,27 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Login from "./Login";
 
-test('the text content within the 2 p elements in the app-body and app-footer divs matches', () => {
-  render(<Login />);
-  const divbody = screen.getByText(/Login to access the full dashboard/i);
+test('renders 2 label elements, 2 input elements, and 1 button element', () => {
+  const { container } = render(<Login />);
 
-  expect(divbody).toBeInTheDocument();
+  const labels = container.querySelectorAll('label');
+  const inputs = container.querySelectorAll('input');
+  const buttons = container.querySelectorAll('button');
+
+  expect(labels).toHaveLength(2);
+  expect(inputs).toHaveLength(2);
+  expect(buttons).toHaveLength(1);
 });
 
-test('renders 2 input elements', () => {
+test('input elements get focused when the related label is clicked', () => {
   render(<Login />);
-  const labelemail = screen.getByLabelText(/Email/i);
-  const labelpassword = screen.getByLabelText(/Password/i);
 
-  expect(labelemail).toBeInTheDocument();
-  expect(labelpassword).toBeInTheDocument();
-});
+  const emailInput = screen.getByLabelText(/email/i);
+  const passwordInput = screen.getByLabelText(/password/i);
 
-test('renders 2 label elements with the text Email and Password', () => {
-  render(<Login />);
-  const labelemail = screen.getByLabelText(/email/i);
-  const labelpassword = screen.getByLabelText(/password/i);
+  fireEvent.click(screen.getByText(/email/i));
+  expect(emailInput).toHaveFocus();
 
-  expect(labelemail).toBeInTheDocument();
-  expect(labelpassword).toBeInTheDocument();
-});
-
-test('renders a button with the text OK', () => {
-  render(<Login />);
-  const button = screen.getByRole('button', { name: /ok/i });
-
-  expect(button).toBeInTheDocument();
+  fireEvent.click(screen.getByText(/password/i));
+  expect(passwordInput).toHaveFocus();
 });
