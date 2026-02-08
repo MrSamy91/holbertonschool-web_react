@@ -6,7 +6,7 @@ describe('Notifications', () => {
   const mockNotifications = [
     { id: 1, type: 'default', value: 'New course available' },
     { id: 2, type: 'urgent', value: 'New resume available' },
-    { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } },
+    { id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
   ];
 
   test('Check the existence of the notifications title Here is the list of notifications', () => {
@@ -41,13 +41,25 @@ describe('Notifications', () => {
   })
 })
 
+describe('Your Notifications text should always be displayed', () => {
+  test('Your Notifications is displayed when displayDrawer is false', () => {
+    render(<Notifications notifications={[]} displayDrawer={false} />);
+    expect(screen.getByText(/Your notifications/i)).toBeInTheDocument();
+  });
+
+  test('Your Notifications is displayed when displayDrawer is true', () => {
+    render(<Notifications notifications={[]} displayDrawer={true} />);
+    expect(screen.getByText(/Your notifications/i)).toBeInTheDocument();
+  });
+});
+
 describe('Whenever the prop displayDrawer set to false', () => {
   test('Check that the Notifications component doesn t displays the elements', () => {
     const notifications = [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
-      ];
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' },
+      { id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
+    ];
     render(<Notifications notifications={notifications} displayDrawer={false} />);
 
     expect(screen.queryByText("Here is the list of notifications")).not.toBeInTheDocument();
@@ -70,10 +82,11 @@ describe('Whenever the the prop displayDrawer set to true', () => {
     expect(screen.queryByRole('button')).toBeInTheDocument();
   });
 
-  test('Check that the Notifications component displays the elements', () => {
+  test('Check that the Notifications component displays No new notification when empty', () => {
     const notifications = [];
     render(<Notifications notifications={notifications} displayDrawer={true} />);
 
     expect(screen.queryByText("No new notification for now")).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
-})
+});
