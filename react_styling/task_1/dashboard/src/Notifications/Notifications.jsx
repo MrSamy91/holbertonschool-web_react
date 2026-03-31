@@ -1,94 +1,65 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './Notifications.css';
-import closebtn from '../assets/close-button.png';
+import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 
-// export default function Notifications({
-//   notifications = [],
-//   displayDrawer = false, // <= par défaut false (exigence Task 5)
-// }) {
-
-export default class Notifications extends Component {
-  static propTypes = {
-    notifications: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        type: PropTypes.string,
-        value: PropTypes.string,
-        html: PropTypes.shape({ __html: PropTypes.string }),
-      })
-    ),
-    displayDrawer: PropTypes.bool,
-  };
-
-  // par défaut false (exigence Task 5)
-  static defaultProps = {
-    notifications: [],
-    displayDrawer: false,
-  };
-
-  /** IMPORTANT (Task 7):
-   *  Ne re-render que si la longueur de notifications change
-   */
-  shouldComponentUpdate(nextProps) {
-    return nextProps.notifications.length !== this.props.notifications.length;
+class Notifications extends React.Component {
+  constructor(props) {
+    super(props)
   }
 
-  // méthode demandée par l'exo
   markAsRead = (id) => {
-    console.log(`Notification ${id} has been marked as read`);
-  };
+    console.log(`Notification ${id + 1} has been marked as read`);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.props.notifications.length !== nextProps.notifications.length ||
+      this.props.displayDrawer !== nextProps.displayDrawer
+    );
+  }
 
   render() {
-    const { notifications, displayDrawer } = this.props;
+    const { notifications = [], displayDrawer = true } = this.props;
 
-  // Titre toujours visible
-  const Title = (
-    <div className="notification-title" data-testid="notifications-title">
-      <p>Your notifications</p>
-    </div>
-  );
-
-  // Contenu du tiroir (uniquement si displayDrawer === true)
-  const Drawer = displayDrawer ? (
-    <div className="notifications">
-      <div className="notification-items">
-        {notifications.length > 0 ? (
-          <>
-            <p>Here is the list of notifications</p>
-            <button
-              onClick={() => console.log('Close button has been clicked')}
-              aria-label="Close"
-              className="notifications-close"
-            >
-              <img src={closebtn} alt="Close" />
-            </button>
-            <ul>
-              {notifications.map((n) => (
-                <NotificationItem
-                  key={n.id}
-                  id={n.id}
-                  type={n.type}
-                  value={n.value}
-                  html={n.html}
-                  markAsRead={this.markAsRead}
-                />
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p className="notifications-empty">No new notification for now</p>
-        )}
-      </div>
-    </div>
-  ) : null;
-
-  return (
-    <>
-      {Title}
-      {Drawer}
-    </>
-  );
+    return (
+      <>
+        <div className="notification-title">Your notifications</div>
+        {
+          displayDrawer ? (
+            <div className='notification-items'>
+              {notifications.length > 0 ? (
+                <>
+                  <p>Here is the list of notifications</p>
+                  <button
+                    onClick={() => console.log('Close button has been clicked')}
+                    aria-label='Close'
+                  >
+                    <img src={closeIcon} alt='close icon' />
+                  </button>
+                  <ul>
+                    {notifications.map((notification, index) => (
+                      <NotificationItem
+                        id={index}
+                        key={notification.id}
+                        type={notification.type}
+                        value={notification.value}
+                        html={notification.html}
+                        markAsRead={this.markAsRead}
+                      />
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <p>No new notification for now</p>
+              )}
+            </div>
+          ) :
+          ([])
+        }
+      </>
+    );
+  }
 }
-}
+
+export default Notifications

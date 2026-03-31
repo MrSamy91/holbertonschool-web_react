@@ -22,4 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-node_modules
+test.spec.js
+faultyJSX-component.jsx
+testRunner.js

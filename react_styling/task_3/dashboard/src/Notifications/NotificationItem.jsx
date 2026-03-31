@@ -1,38 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
-export default function NotificationItem({ id, type = 'default', value, html, markAsRead }) {
-  const color = type === 'urgent'
-    ? 'var(--urgent-notification-item)'
-    : 'var(--default-notification-item)';
-
-  const onClick = () => {
-    if (markAsRead) markAsRead(id);
-  };
-
-  return html ? (
-    <li
-      data-notification-type={type}
-      style={{ color }}
-      onClick={onClick}
-      // html: { __html: '...' }
-      dangerouslySetInnerHTML={html}
-    />
-  ) : (
-    <li
-      data-notification-type={type}
-      style={{ color }}
-      onClick={onClick}
-    >
-      {value}
-    </li>
-  );
+export default class NotificationItem extends PureComponent {
+  render() {
+    const { type, html, value, markAsRead, id } = this.props;
+    // this console.log is only for test purposes and not mentionned/required in the student code
+    // console.log(`Rendering NotificationItem with id: ${id}, type: ${type}, value: ${value}`);
+    
+    if (type === 'default') {
+      return (
+        <li 
+          className="text-[color:var(--default-notification-item)] pl-1"
+          data-notification-type={type}
+          onClick={() => markAsRead(id)}
+        >{value}</li>
+      );
+    } else if (type === 'urgent' && html !== undefined) {
+      return (
+        <li 
+          className="text-[color:var(--urgent-notification-item)] pl-1"
+          data-notification-type={type} 
+          dangerouslySetInnerHTML={html}
+          onClick={() => markAsRead(id)}
+        ></li>
+      );
+    } else {
+      return (
+        <li 
+          className="text-[color:var(--urgent-notification-item)] pl-1"
+          data-notification-type={type}
+          onClick={() => markAsRead(id)}
+        >{value}</li>
+      );
+    }
+  }
 }
-
-NotificationItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  type: PropTypes.string,
-  value: PropTypes.string,
-  html: PropTypes.shape({ __html: PropTypes.string }),
-  markAsRead: PropTypes.func,
-};

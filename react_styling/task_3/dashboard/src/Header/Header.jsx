@@ -1,17 +1,12 @@
-import React from 'react';
-import holbertonLogo from '../assets/holberton-logo.jpg';
+import logo from '../assets/holberton-logo.jpg';
 
 export default function Header() {
   return (
-    <header className="App-header flex items-center p-[10px]">
-      <img
-        className="App-logo h-[200px] mr-5"
-        src={holbertonLogo}
-        alt="Holberton logo"
-      />
-      <h1 className="text-[var(--main-color)] text-4xl font-bold">
+    <div className="App-header flex items-center py-2">
+      <img src={logo} className="App-logo h-60 pointer-events-none" alt="holberton logo" />
+      <h1 className="font-bold text-[color:var(--main-color)] text-5xl">
         School Dashboard
       </h1>
-    </header>
+    </div>
   );
 }

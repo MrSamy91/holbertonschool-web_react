@@ -1,16 +1,11 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Footer from './Footer';
+import { getCurrentYear, getFooterCopy } from '../utils/utils';
 
-describe('Footer', () => {
-  test('renders copyright with current year', () => {
-    render(<Footer />);
-    const year = new Date().getFullYear().toString();
+test('it should rendered without crashing', () => {
+  render(<Footer />)
 
-    const p = screen.getByText(/copyright/i);
-    expect(p).toBeInTheDocument();
-    expect(p).toHaveTextContent(year);
-    // Don’t over-specify getFooterCopy(false); we just ensure visible text is correct
-  });
-});
+  const footerParagraph = screen.getByText(`Copyright ${getCurrentYear()} - ${getFooterCopy(true)}`);
+
+  expect(footerParagraph).toHaveTextContent(/copyright 2025 - holberton School/i)
+})

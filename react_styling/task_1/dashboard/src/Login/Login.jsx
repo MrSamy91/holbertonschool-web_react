@@ -1,30 +1,17 @@
-import React from 'react';
-import './Login.css';
 import WithLogging from '../HOC/WithLogging';
+import './Login.css';
 
-// export default function Login() {
-//   return (
-//     <div className="App-body">
-//       <p>Login to access the full dashboard</p>
-//       <label htmlFor="email">Email:</label>
-//       <input id="email" type="email" />
-//       <label htmlFor="password">Password:</label>
-//       <input id="password" type="password" />
-//       <button>OK</button>
-//     </div>
-//   );
-// }
-function Login() {
+export default WithLogging(() => {
   return (
     <div className="App-body">
       <p>Login to access the full dashboard</p>
-      <label htmlFor="email">Email:</label>
-      <input id="email" type="email" />
-      <label htmlFor="password">Password:</label>
-      <input id="password" type="password" />
-      <button>OK</button>
+      <div className="form">
+        <label htmlFor="email">Email</label>
+        <input type="email" name="user_email" id="email" />
+        <label htmlFor="password">Password</label>
+        <input type="password" name="user_password" id="password" />
+        <button>OK</button>
+      </div>
     </div>
-  );
-}
-
-export default WithLogging(Login);
+  )
+});

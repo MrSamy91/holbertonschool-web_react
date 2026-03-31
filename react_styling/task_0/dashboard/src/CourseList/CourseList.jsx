@@ -1,61 +1,52 @@
-import React from "react";
-import CourseListRow from "./CourseListRow";
+import CourseListRow from './CourseListRow';
 import './CourseList.css'
 import WithLogging from '../HOC/WithLogging';
 
-// export default function CourseList({ courses=[] }) {
-// 	return (
-// 		<table id="CourseList">
-// 			{courses.length > 0 ? (
-// 				<>
-// 					<thead>
-// 						<CourseListRow isHeader={true} textFirstCell="Available courses" />
-// 						<CourseListRow isHeader={true} textFirstCell="Course name" textSecondCell="Credit" />
-// 					</thead>
-// 					<tbody>
-// 						{courses.map((course) => (
-// 							<CourseListRow
-// 								key={course.id}
-// 								textFirstCell={course.name}
-// 								textSecondCell={course.credit}
-// 							/>
-// 						))}
-// 					</tbody>
-// 				</>
-// 				) : (
-// 					<tbody>
-// 						<CourseListRow isHeader={true} textFirstCell="No course available yet" />
-// 					</tbody>
-// 					)}
-// 		</table>
-// 	);
-// }
 function CourseList({ courses = [] }) {
   return (
-    <table id="CourseList">
-      {courses.length > 0 ? (
-        <>
-          <thead>
-            <CourseListRow isHeader={true} textFirstCell="Available courses" />
-            <CourseListRow isHeader={true} textFirstCell="Course name" textSecondCell="Credit" />
-          </thead>
-          <tbody>
-            {courses.map((course) => (
-              <CourseListRow
-                key={course.id}
-                textFirstCell={course.name}
-                textSecondCell={course.credit}
+    <div className='courses'>
+      {
+        courses.length > 0 ? 
+        (
+          <table id='CourseList'>
+            <thead>
+              <CourseListRow 
+                textFirstCell="Available courses" 
+                isHeader={true} 
               />
-            ))}
-          </tbody>
-        </>
-      ) : (
-        <tbody>
-          <CourseListRow isHeader={true} textFirstCell="No course available yet" />
-        </tbody>
-      )}
-    </table>
+              <CourseListRow 
+                textFirstCell="Course name" 
+                textSecondCell="Credit" 
+                isHeader={true} 
+              />
+            </thead>
+            <tbody>
+              {
+                courses.map(course => (
+                  <CourseListRow 
+                    key={course.id} 
+                    textFirstCell={course.name} 
+                    textSecondCell={course.credit} 
+                  />
+                ))
+              }
+            </tbody>
+          </table>
+        ) : (
+          <table id='CourseList'>
+            <thead>
+              <CourseListRow 
+                isHeader={true} 
+                textFirstCell="No course available yet" 
+              />
+            </thead>
+          </table>
+        )
+      }
+    </div>
   );
 }
 
-export default WithLogging(CourseList);
+const CourseListWithLogging = WithLogging(CourseList);
+export default CourseListWithLogging
+

@@ -1,26 +1,19 @@
-// Login.jsx
-import React from 'react';
 import WithLogging from '../HOC/WithLogging';
 
 function Login() {
   return (
-    // ⚠️ PAS de border ici
-    <div className="App-body p-[10px]">
-      {/* ✅ La SEULE bordure-top doit être sur CE div */}
-      <div className="border-t-[3px] border-[var(--main-color)] pt-2">
-        <p className="text-sm mb-2">Login to access the full dashboard</p>
-
-        <form className="App-login inline-flex items-center gap-2 flex-wrap">
-          <label htmlFor="email" className="ml-4 mr-2">Email</label>
-          <input id="email" type="email" className="border border-gray-300 px-2 py-1 mr-2 rounded" />
-
-          <label htmlFor="password" className="ml-4 mr-2">Password</label>
-          <input id="password" type="password" className="border border-gray-300 px-2 py-1 mr-2 rounded" />
-
-          <button className="px-3 py-1 border rounded text-xs">OK</button>
-        </form>
+    <div className="App-body flex flex-col p-5 pl-10 h-[45vh] border-t-4 border-[color:var(--main-color)]">
+      <p className="text-xl">Login to access the full dashboard</p>
+      <div className="mt-8 text-lg">
+        <label htmlFor="email" className="pr-2">Email</label>
+        <input type="email" name="user_email" id="email" className="border rounded" />
+        <label htmlFor="password" className="pl-2 pr-2">Password</label>
+        <input type="password" name="user_password" id="password" className="border rounded" />
+        <button className="cursor-pointer border px-1 rounded ml-2">OK</button>
       </div>
     </div>
   );
 }
-export default WithLogging(Login);
+
+const LoginWithLogging = WithLogging(Login)
+export default LoginWithLogging;
