@@ -1,4 +1,4 @@
-export const ACTION_TYPES = {
+export const APP_ACTIONS = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   TOGGLE_DRAWER: 'TOGGLE_DRAWER',
@@ -20,7 +20,7 @@ export const initialState = {
 
 export function appReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTION_TYPES.LOGIN:
+    case APP_ACTIONS.LOGIN:
       return {
         ...state,
         user: {
@@ -30,7 +30,7 @@ export function appReducer(state = initialState, action) {
         }
       };
       
-    case ACTION_TYPES.LOGOUT:
+    case APP_ACTIONS.LOGOUT:
       return {
         ...state,
         user: {
@@ -41,25 +41,25 @@ export function appReducer(state = initialState, action) {
         courses: []
       };
 
-    case ACTION_TYPES.SET_NOTIFICATIONS:
+    case APP_ACTIONS.SET_NOTIFICATIONS:
       return {
         ...state,
         notifications: action.payload
       };
 
-    case ACTION_TYPES.SET_COURSES:
+    case APP_ACTIONS.SET_COURSES:
       return {
         ...state,
         courses: action.payload
       };
 
-    case ACTION_TYPES.TOGGLE_DRAWER:
+    case APP_ACTIONS.TOGGLE_DRAWER:
       return {
         ...state,
         displayDrawer: !state.displayDrawer
       };
 
-    case ACTION_TYPES.MARK_NOTIFICATION_READ:
+    case APP_ACTIONS.MARK_NOTIFICATION_READ:
       return {
         ...state,
         notifications: state.notifications.filter(

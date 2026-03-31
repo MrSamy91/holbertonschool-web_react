@@ -9,7 +9,7 @@ import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
-import { appReducer, initialState, ACTION_TYPES } from './appReducer';
+import { appReducer, initialState, APP_ACTIONS } from './appReducer';
 
 const BASE_URL = 'http://localhost:5173';
 const API_ENDPOINTS = {
@@ -48,7 +48,7 @@ export default function App() {
           updatedNotifications.push(latestNotif);
         }
 
-        dispatch({ type: ACTION_TYPES.SET_NOTIFICATIONS, payload: updatedNotifications });
+        dispatch({ type: APP_ACTIONS.SET_NOTIFICATIONS, payload: updatedNotifications });
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }
@@ -61,14 +61,14 @@ export default function App() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(API_ENDPOINTS.courses);
-        dispatch({ type: ACTION_TYPES.SET_COURSES, payload: response.data.courses });
+        dispatch({ type: APP_ACTIONS.SET_COURSES, payload: response.data.courses });
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     };
 
     if (!state.user.isLoggedIn) {
-      dispatch({ type: ACTION_TYPES.SET_COURSES, payload: [] });
+      dispatch({ type: APP_ACTIONS.SET_COURSES, payload: [] });
       return;
     }
 
@@ -76,27 +76,27 @@ export default function App() {
   }, [state.user.isLoggedIn]);
 
   const handleDisplayDrawer = useCallback(() => {
-    dispatch({ type: ACTION_TYPES.TOGGLE_DRAWER });
+    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER });
   }, []);
 
   const handleHideDrawer = useCallback(() => {
-    dispatch({ type: ACTION_TYPES.TOGGLE_DRAWER });
+    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER });
   }, []);
 
   const logIn = (email, password) => {
     dispatch({
-      type: ACTION_TYPES.LOGIN,
+      type: APP_ACTIONS.LOGIN,
       payload: { email, password }
     });
   };
 
   const logOut = () => {
-    dispatch({ type: ACTION_TYPES.LOGOUT });
+    dispatch({ type: APP_ACTIONS.LOGOUT });
   };
 
   const markNotificationAsRead = useCallback((id) => {
     dispatch({
-      type: ACTION_TYPES.MARK_NOTIFICATION_READ,
+      type: APP_ACTIONS.MARK_NOTIFICATION_READ,
       payload: id
     });
     console.log(`Notification ${id} has been marked as read`);
