@@ -25,7 +25,11 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [displayDrawer, setDisplayDrawer] = useState(true);
-  const [user, setUser] = useState({ ...newContext.user });
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    isLoggedIn: false
+  });
   const [notifications, setNotifications] = useState([]);
   const [courses, setCourses] = useState([]);
 
