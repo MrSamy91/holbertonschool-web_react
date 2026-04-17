@@ -1,35 +1,35 @@
-import React from "react";
 import { getCurrentYear, getFooterCopy } from "../../utils/utils";
+import { StyleSheet, css } from "aphrodite";
 
-function Footer({ user, logOut }) {
-  return (
-    <footer className="App-footer text-center text-sm border-t-4 border-[var(--main-color)] mt-10 py-4 text-gray-600">
-      <p>
+const styles = StyleSheet.create({
+  footer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderTop: "5px red solid",
+    gap: "10px",
+  },
+  text: {
+    fontFamily: "Roboto, sans-serif",
+    fontStyle: "italic",
+    fontSize: "1.3rem",
+    padding: "0 3px",
+    margin: 0,
+  },
+});
+
+export default function Footer({ user }) {
+  return user ? (
+    <div className={css(styles.footer)}>
+      <p className={css(styles.text)}>
         Copyright {getCurrentYear()} - {getFooterCopy(true)}
       </p>
-
-      {/* Display contact / logout based on login status */}
-      {user?.isLoggedIn ? (
-        <p>
-          Welcome {user.email} (
-          <a
-            href="#logout"
-            onClick={(e) => {
-              e.preventDefault();
-              logOut();
-            }}
-          >
-            Logout
-          </a>
-          )
-        </p>
-      ) : (
-        <p>
-          <a href="#contact">Contact us</a>
-        </p>
+      {user.isLoggedIn && (
+        <span className={css(styles.text)}>
+          <a href="#">Contact us</a>
+        </span>
       )}
-    </footer>
-  );
+    </div>
+  ) : null;
 }
-
-export default Footer;

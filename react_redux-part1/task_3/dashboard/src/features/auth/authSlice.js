@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null,
+  user: {
+    email: '',
+    password: '',
+  },
   isLoggedIn: false,
 };
 
@@ -9,14 +12,14 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action) => {
-      // On stocke directement l'objet user envoyé en payload
-      // Par ex: { email: 'test@test.com', password: '1234' }
-      state.user = action.payload;
+    login(state, action) {
+      state.user.email = action.payload.email;
+      state.user.password = action.payload.password;
       state.isLoggedIn = true;
     },
-    logout: (state) => {
-      state.user = null;
+    logout(state) {
+      state.user.email = '';
+      state.user.password = '';
       state.isLoggedIn = false;
     },
   },
