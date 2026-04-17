@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -7,22 +6,22 @@ import authReducer from './features/auth/authSlice';
 import notificationsReducer from './features/notifications/notificationsSlice';
 import coursesReducer from './features/courses/coursesSlice';
 
-const mockStore = (initialState = {}) => {
+const buildStore = (preloaded = {}) => {
   return configureStore({
     reducer: {
       auth: authReducer,
       notifications: notificationsReducer,
       courses: coursesReducer,
     },
-    preloadedState: initialState,
+    preloadedState: preloaded,
   });
 };
 
 describe('App Component', () => {
   test('renders without crashing', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: '', password: '' }, isLoggedIn: false },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -36,9 +35,9 @@ describe('App Component', () => {
   });
 
   test('renders Login component when not logged in', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: '', password: '' }, isLoggedIn: false },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -53,9 +52,9 @@ describe('App Component', () => {
   });
 
   test('renders CourseList component when logged in', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: 'test@example.com', password: 'password' }, isLoggedIn: true },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -69,9 +68,9 @@ describe('App Component', () => {
   });
 
   test('renders Header component', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: '', password: '' }, isLoggedIn: false },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -81,13 +80,13 @@ describe('App Component', () => {
       </Provider>
     );
 
-    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(screen.getByAltText(/holberton logo/i)).toBeInTheDocument();
   });
 
   test('renders Footer component', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: '', password: '' }, isLoggedIn: false },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -97,13 +96,13 @@ describe('App Component', () => {
       </Provider>
     );
 
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(screen.getByText(/Copyright/i)).toBeInTheDocument();
   });
 
   test('renders Notifications component', () => {
-    const store = mockStore({
+    const store = buildStore({
       auth: { user: { email: '', password: '' }, isLoggedIn: false },
-      notifications: { notifications: [], displayDrawer: false },
+      notifications: { notifications: [], displayDrawer: true },
       courses: { courses: [] },
     });
 
@@ -113,6 +112,6 @@ describe('App Component', () => {
       </Provider>
     );
 
-    expect(screen.getByTestId('notifications-title')).toBeInTheDocument();
+    expect(screen.getByText(/Your notifications/i)).toBeInTheDocument();
   });
 });

@@ -1,38 +1,65 @@
 import { render, screen } from '@testing-library/react';
-import { test, expect } from "@jest/globals";
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import CourseList from './CourseList';
+import coursesReducer from '../../features/courses/coursesSlice';
 
-test('Should render the CourseList component without crashing', () => {
-    const props = {
-        courses: [
-            { id: 1, name: 'ES6', credit: 60 },
-            { id: 2, name: 'Webpack', credit: 20 },
-            { id: 3, name: 'React', credit: 40 }
-        ]
-    }
-    render(<CourseList {...props} />)
-})
+const buildTestStore = (preloaded) => {
+  return configureStore({
+    reducer: {
+      courses: coursesReducer,
+    },
+    preloadedState: preloaded,
+  });
+};
 
-test('Should render the CourseList component with 5 rows', () => {
-    const props = {
-        courses: [
-            { id: 1, name: 'ES6', credit: 60 },
-            { id: 2, name: 'Webpack', credit: 20 },
-            { id: 3, name: 'React', credit: 40 }
-        ]
-    }
-    render(<CourseList {...props} />)
-    const rowElements = screen.getAllByRole('row');
-    expect(rowElements).toHaveLength(5)
-})
+const renderWithStore = (component, preloaded) => {
+  const store = buildTestStore(preloaded);
+  return render(
+    <Provider store={store}>
+      {component}
+    </Provider>
+  );
+};
 
-test('Should render the CourseList component with 1 rows', () => {
-    const props = {
-        courses: []
-    }
-    render(<CourseList {...props} />)
-    const rowElement = screen.getAllByRole('row');
-    const rowText = screen.getByText('No course available yet');
-    expect(rowElement).toHaveLength(1)
-    expect(rowText).toBeInTheDocument
-})
+test('it should render the CourseList component without crashing', () => {
+  const preloaded = {
+    courses: {
+      courses: [
+        { id: 1, name: 'ES6', credit: 60 },
+        { id: 2, name: 'Webpack', credit: 20 },
+        { id: 3, name: 'React', credit: 40 },
+      ],
+    },
+  };
+  renderWithStore(<CourseList />, preloaded);
+});
+
+test('it should render the CourseList component with 5 rows', () => {
+  const preloaded = {
+    courses: {
+      courses: [
+        { id: 1, name: 'ES6', credit: 60 },
+        { id: 2, name: 'Webpack', credit: 20 },
+        { id: 3, name: 'React', credit: 40 },
+      ],
+    },
+  };
+  renderWithStore(<CourseList />, preloaded);
+
+  const rowElements = screen.getAllByRole('row');
+  expect(rowElements).toHaveLength(5);
+});
+
+test('it should render the CourseList component with 1 row when empty', () => {
+  const preloaded = {
+    courses: {
+      courses: [],
+    },
+  };
+
+  renderWithStore(<CourseList />, preloaded);
+
+  const rowElements = screen.getAllByRole('row');
+  expect(rowElements).toHaveLength(1);
+});

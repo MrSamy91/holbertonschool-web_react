@@ -1,50 +1,96 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { expect, test, jest } from "@jest/globals";
-import Header from "./Header.jsx";
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import Header from './Header';
+import authReducer from '../../features/auth/authSlice';
 
-test("renders logo and header title", () => {
-  const user = { email: "", password: "", isLoggedIn: false };
-  render(<Header user={user} logOut={jest.fn()} />);
+const buildTestStore = (preloaded) => {
+  return configureStore({
+    reducer: {
+      auth: authReducer,
+    },
+    preloadedState: preloaded,
+  });
+};
 
-  expect(screen.getByAltText(/holberton logo/i)).toBeInTheDocument();
-  expect(
-    screen.getByRole("heading", { level: 1, name: /School dashboard/i })
-  ).toBeInTheDocument();
+const renderWithStore = (component, preloaded) => {
+  const store = buildTestStore(preloaded);
+  return render(
+    <Provider store={store}>
+      {component}
+    </Provider>
+  );
+};
+
+test('should contain a heading and an img element', () => {
+  const preloaded = {
+    auth: {
+      user: { email: '', password: '' },
+      isLoggedIn: false,
+    },
+  };
+
+  renderWithStore(<Header />, preloaded);
+
+  const headingElement = screen.getByRole('heading', { name: /school Dashboard/i });
+  const imgElement = screen.getByAltText('holberton logo');
+
+  expect(headingElement).toBeInTheDocument();
+  expect(imgElement).toBeInTheDocument();
 });
 
-test("does not render logoutSection when user is not logged in", () => {
-  const user = { email: "", password: "", isLoggedIn: false };
-  render(<Header user={user} logOut={jest.fn()} />);
+test('logoutSection is not rendered with default context value', () => {
+  const preloaded = {
+    auth: {
+      user: { email: '', password: '' },
+      isLoggedIn: false,
+    },
+  };
+
+  renderWithStore(<Header />, preloaded);
 
   const logoutSection = screen.queryByText(/logout/i);
   expect(logoutSection).not.toBeInTheDocument();
 });
 
-test("renders logoutSection when user is logged in", () => {
-  const user = {
-    email: "user@test.com",
-    password: "password123",
-    isLoggedIn: true,
+test('logoutSection is rendered when user is logged in', () => {
+  const preloaded = {
+    auth: {
+      user: { email: 'test@test.com', password: 'password123' },
+      isLoggedIn: true,
+    },
   };
-  render(<Header user={user} logOut={jest.fn()} />);
+
+  renderWithStore(<Header />, preloaded);
 
   const logoutSection = screen.getByText(/logout/i);
   expect(logoutSection).toBeInTheDocument();
-  expect(screen.getByText(/Welcome user@test.com/i)).toBeInTheDocument();
+  expect(screen.getByText(/test@test.com/i)).toBeInTheDocument();
 });
 
-test("clicking logout calls logOut function", () => {
-  const user = {
-    email: "user@test.com",
-    password: "password123",
-    isLoggedIn: true,
+test('clicking logout link dispatches the logout action', () => {
+  const preloaded = {
+    auth: {
+      user: { email: 'test@test.com', password: 'password123' },
+      isLoggedIn: true,
+    },
   };
-  const logOutSpy = jest.fn();
 
-  render(<Header user={user} logOut={logOutSpy} />);
+  const store = buildTestStore(preloaded);
+  const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+  render(
+    <Provider store={store}>
+      <Header />
+    </Provider>
+  );
 
   const logoutLink = screen.getByText(/logout/i);
   fireEvent.click(logoutLink);
 
-  expect(logOutSpy).toHaveBeenCalled();
+  expect(dispatchSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      type: 'auth/logout',
+    })
+  );
 });
