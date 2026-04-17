@@ -1,12 +1,10 @@
-import React from "react";
-
 function BodySection({ title, children }) {
   return (
-    <section className="App-bodysection mt-6">
-      {title && <h2 className="text-xl font-semibold mb-2">{title}</h2>}
+    <div className='bodySection'>
+      <h2>{title}</h2>
       {children}
-    </section>
-  );
+    </div>
+  )
 }
 
 export default BodySection;
