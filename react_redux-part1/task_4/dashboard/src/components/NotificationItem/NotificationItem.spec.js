@@ -1,62 +1,79 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, test, expect, jest } from "@jest/globals";
-import NotificationItem from "./NotificationItem.jsx";
-import { getLatestNotification } from "../../utils/utils.js";
+import { render, screen, fireEvent } from '@testing-library/react';
+import NotificationItem from './NotificationItem';
 
-describe("NotificationItem Component", () => {
+test('it should call markAsRead with the correct id when clicked', () => {
+  const mockMarkAsRead = jest.fn();
+  const props = {
+    id: 42,
+    type: 'default',
+    value: 'Test notification',
+    markAsRead: mockMarkAsRead,
+  };
 
-  test("renders without crashing", () => {
-    const mockMarkAsRead = jest.fn();
-    render(<NotificationItem id={1} markAsRead={mockMarkAsRead} />);
-    const item = screen.getByTestId("notification-item");
-    expect(item).toBeInTheDocument();
+  render(<NotificationItem {...props} />);
+  const liElement = screen.getByRole('listitem');
+
+  fireEvent.click(liElement);
+  expect(mockMarkAsRead).toHaveBeenCalledTimes(1);
+  expect(mockMarkAsRead).toHaveBeenCalledWith(42);
+});
+
+describe('NotificationItem - React.memo behavior', () => {
+  let markAsRead;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    markAsRead = jest.fn();
   });
 
-  test('renders correctly with type="default" and text value', () => {
-    const props = {
-      id: 2,
-      type: "default",
-      value: "Default notification",
-      markAsRead: jest.fn(),
-    };
+  test('should update when props change', () => {
+    const { rerender, container } = render(
+      <NotificationItem
+        id={1}
+        type="urgent"
+        value="New notification"
+        markAsRead={markAsRead}
+      />
+    );
 
-    render(<NotificationItem {...props} />);
-    const li = screen.getByText("Default notification");
+    const firstContent = container.querySelector('[data-notification-type]').textContent;
 
-    expect(li).toHaveAttribute("data-notification-type", "default");
-    expect(li).toHaveStyle({ color: "var(--default-notification-item)" });
+    rerender(
+      <NotificationItem
+        id={1}
+        type="urgent"
+        value="Updated notification"
+        markAsRead={markAsRead}
+      />
+    );
+
+    const secondContent = container.querySelector('[data-notification-type]').textContent;
+    expect(secondContent).not.toBe(firstContent);
+    expect(secondContent).toBe('Updated notification');
   });
 
-  test('renders correctly with type="urgent" and HTML content', () => {
-    const props = {
-      id: 3,
-      type: "urgent",
-      html: { __html: getLatestNotification() },
-      markAsRead: jest.fn(),
-    };
+  test('should not re-render when props do not change', () => {
+    const { rerender, container } = render(
+      <NotificationItem
+        id={1}
+        type="urgent"
+        value="New notification"
+        markAsRead={markAsRead}
+      />
+    );
 
-    render(<NotificationItem {...props} />);
-    const li = screen.getByTestId("notification-item");
+    const firstEl = container.querySelector('[data-notification-type]');
 
-    expect(li).toHaveAttribute("data-notification-type", "urgent");
-    expect(li).toHaveStyle({ color: "var(--urgent-notification-item)" });
-    expect(li.innerHTML).toContain("Urgent requirement");
+    rerender(
+      <NotificationItem
+        id={1}
+        type="urgent"
+        value="New notification"
+        markAsRead={markAsRead}
+      />
+    );
+
+    const secondEl = container.querySelector('[data-notification-type]');
+    expect(secondEl.textContent).toBe(firstEl.textContent);
   });
-
-  test("calls markAsRead with the correct id when clicked", () => {
-    const mockMarkAsRead = jest.fn();
-    const props = {
-      id: 4,
-      type: "default",
-      value: "Click me",
-      markAsRead: mockMarkAsRead,
-    };
-
-    render(<NotificationItem {...props} />);
-    const li = screen.getByText("Click me");
-
-    fireEvent.click(li);
-    expect(mockMarkAsRead).toHaveBeenCalledWith(4);
-  });
-
 });

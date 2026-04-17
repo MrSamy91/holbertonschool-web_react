@@ -1,45 +1,58 @@
-import React, { memo } from "react";
-import PropTypes from "prop-types";
+import { memo } from "react";
+import { StyleSheet, css } from "aphrodite";
 
-function NotificationItem({ id, type, value, html, markAsRead }) {
-  const colorStyle = {
-    color:
-      type === "default"
-        ? "var(--default-notification-item)"
-        : "var(--urgent-notification-item)",
-  };
+const styles = StyleSheet.create({
+  default: {
+    color: "blue",
+    "@media (max-width: 900px)": {
+      width: "100%",
+      borderBottom: "1px solid black",
+      fontSize: "20px",
+      padding: "10px 8px",
+      listStyle: "none",
+    },
+  },
+  urgent: {
+    color: "red",
+    "@media (max-width: 900px)": {
+      width: "100%",
+      borderBottom: "1px solid black",
+      fontSize: "20px",
+      padding: "10px 8px",
+      listStyle: "none",
+    },
+  },
+});
 
-  const handleClick = () => {
-    if (markAsRead) markAsRead(id);
-  };
+const NotificationItem = memo(function NotificationItem({
+  type,
+  html,
+  value,
+  markAsRead,
+  id,
+}) {
+  const style = type === "default" ? styles.default : styles.urgent;
+
+  if (html !== undefined) {
+    return (
+      <li
+        className={css(style)}
+        data-notification-type={type}
+        dangerouslySetInnerHTML={html}
+        onClick={() => markAsRead(id)}
+      ></li>
+    );
+  }
 
   return (
     <li
-      data-testid="notification-item"
-      style={colorStyle}
+      className={css(style)}
       data-notification-type={type}
-      dangerouslySetInnerHTML={html ? html : undefined}
-      onClick={handleClick}
+      onClick={() => markAsRead(id)}
     >
-      {!html ? value : null}
+      {value}
     </li>
   );
-}
+});
 
-NotificationItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  type: PropTypes.oneOf(["default", "urgent"]).isRequired,
-  value: PropTypes.string,
-  html: PropTypes.shape({
-    __html: PropTypes.string,
-  }),
-  markAsRead: PropTypes.func.isRequired,
-};
-
-NotificationItem.defaultProps = {
-  type: "default",
-  value: "",
-  html: undefined,
-};
-
-export default memo(NotificationItem);
+export default NotificationItem;
