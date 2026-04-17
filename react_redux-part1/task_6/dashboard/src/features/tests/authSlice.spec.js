@@ -1,7 +1,7 @@
 import authReducer, { login, logout } from '../auth/authSlice';
 
 describe('authSlice', () => {
-  const initialState = {
+  const defaultState = {
     user: {
       email: '',
       password: '',
@@ -9,25 +9,24 @@ describe('authSlice', () => {
     isLoggedIn: false,
   };
 
-  it('should return the correct initial state by default', () => {
-    const state = authReducer(undefined, { type: '' });
-    expect(state).toEqual(initialState);
+  test('should return the initial state by default', () => {
+    expect(authReducer(undefined, { type: 'unknown' })).toEqual(defaultState);
   });
 
-  it('should update the state correctly when login action is dispatched', () => {
-    const loginPayload = {
+  test('should update state correctly when login is dispatched', () => {
+    const credentials = {
       email: 'test@example.com',
       password: 'password123',
     };
 
-    const state = authReducer(initialState, login(loginPayload));
+    const result = authReducer(defaultState, login(credentials));
 
-    expect(state.user.email).toBe('test@example.com');
-    expect(state.user.password).toBe('password123');
-    expect(state.isLoggedIn).toBe(true);
+    expect(result.user.email).toBe('test@example.com');
+    expect(result.user.password).toBe('password123');
+    expect(result.isLoggedIn).toBe(true);
   });
 
-  it('should reset the state correctly when logout action is dispatched', () => {
+  test('should reset state correctly when logout is dispatched', () => {
     const loggedInState = {
       user: {
         email: 'test@example.com',
@@ -36,15 +35,15 @@ describe('authSlice', () => {
       isLoggedIn: true,
     };
 
-    const state = authReducer(loggedInState, logout());
+    const result = authReducer(loggedInState, logout());
 
-    expect(state.user.email).toBe('');
-    expect(state.user.password).toBe('');
-    expect(state.isLoggedIn).toBe(false);
+    expect(result.user.email).toBe('');
+    expect(result.user.password).toBe('');
+    expect(result.isLoggedIn).toBe(false);
   });
 
-  it('should handle logout from initial state without errors', () => {
-    const state = authReducer(initialState, logout());
-    expect(state).toEqual(initialState);
+  test('should handle logout from initial state without errors', () => {
+    const result = authReducer(defaultState, logout());
+    expect(result).toEqual(defaultState);
   });
 });
