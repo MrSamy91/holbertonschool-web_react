@@ -1,10 +1,8 @@
-// task_1/dashboard/src/features/notifications/notificationsSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { getLatestNotification } from '../../utils/utils';
 
 const API_BASE_URL = 'http://localhost:5173';
-
 const ENDPOINTS = {
   notifications: `${API_BASE_URL}/notifications.json`,
 };
@@ -17,14 +15,24 @@ const initialState = {
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async () => {
-    const response = await fetch(ENDPOINTS.notifications);
-    const data = await response.json();
+    const res = await axios.get(ENDPOINTS.notifications);
+    const latestNotif = {
+      id: 3,
+      type: 'urgent',
+      html: { __html: getLatestNotification() },
+    };
 
-    const updatedNotifications = data.map((n) =>
-      n.id === 3 ? { ...n, html: { __html: getLatestNotification() } } : n
-    );
+    const list = res.data.notifications;
+    const idx = list.findIndex((n) => n.id === 3);
 
-    return updatedNotifications;
+    const result = [...list];
+    if (idx !== -1) {
+      result[idx] = latestNotif;
+    } else {
+      result.push(latestNotif);
+    }
+
+    return result;
   }
 );
 
@@ -32,16 +40,17 @@ const notificationsSlice = createSlice({
   name: 'notifications',
   initialState,
   reducers: {
-    markNotificationAsRead: (state, action) => {
-      console.log(`Notification ${action.payload} has been marked as read`);
+    markNotificationAsRead(state, action) {
+      const id = action.payload;
       state.notifications = state.notifications.filter(
-        (notification) => notification.id !== action.payload
+        (n) => n.id !== id
       );
+      console.log(`Notification ${id} has been marked as read`);
     },
-    showDrawer: (state) => {
+    showDrawer(state) {
       state.displayDrawer = true;
     },
-    hideDrawer: (state) => {
+    hideDrawer(state) {
       state.displayDrawer = false;
     },
   },
@@ -52,7 +61,5 @@ const notificationsSlice = createSlice({
   },
 });
 
-export const { markNotificationAsRead, showDrawer, hideDrawer } =
-  notificationsSlice.actions;
-
+export const { markNotificationAsRead, showDrawer, hideDrawer } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

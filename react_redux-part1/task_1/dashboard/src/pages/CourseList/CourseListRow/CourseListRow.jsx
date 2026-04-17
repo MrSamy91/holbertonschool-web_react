@@ -1,54 +1,30 @@
-import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
-CourseListRow.propTypes = {
-  isHeader: PropTypes.bool.isRequired,
-  textFirstCell: PropTypes.string.isRequired,
-  textSecondCell: PropTypes.string,
-};
+const styles = StyleSheet.create({
+  headerRow: {
+    backgroundColor: '#deb5b545'
+  },
+  row: {
+    backgroundColor: '#f5f5f5ab'
+  }
+});
 
 export default function CourseListRow({
   isHeader = false,
   textFirstCell = '',
-  textSecondCell = null,
+  textSecondCell = null
 }) {
-  const cellStyle = isHeader 
-    ? { backgroundColor: 'var(--color-table-header)', opacity: 0.66 }
-    : { backgroundColor: 'var(--color-table-rows)', opacity: 0.45 };
-  
-  const cellClasses = 'border border-gray-400';
-  
+  const rowStyle = isHeader ? styles.headerRow : styles.row;
+
   return isHeader ? (
-    <tr>
-      <th 
-        colSpan={textSecondCell ? 1 : 2}
-        className={cellClasses}
-        style={cellStyle}
-      >
-        {textFirstCell}
-      </th>
-      {textSecondCell ? (
-        <th 
-          className={cellClasses}
-          style={cellStyle}
-        >
-          {textSecondCell}
-        </th>
-      ) : null}
+    <tr className={css(rowStyle)}>
+      <th colSpan={textSecondCell ? 1 : 2}>{textFirstCell}</th>
+      {textSecondCell ? <th>{textSecondCell}</th> : null}
     </tr>
   ) : (
-    <tr>
-      <td 
-        className={`${cellClasses} pl-2`}
-        style={cellStyle}
-      >
-        {textFirstCell}
-      </td>
-      <td 
-        className={`${cellClasses} pl-2`}
-        style={cellStyle}
-      >
-        {textSecondCell}
-      </td>
+    <tr className={css(rowStyle)}>
+      <td>{textFirstCell}</td>
+      <td>{textSecondCell}</td>
     </tr>
   );
 }

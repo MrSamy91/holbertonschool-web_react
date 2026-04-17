@@ -1,18 +1,28 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import BodySection from './BodySection';
 
-describe('BodySection', () => {
-  it('renders a heading with the title prop value', () => {
-    const { getByText } = render(<BodySection title="Test Title" />);
-    expect(getByText('Test Title')).toBeInTheDocument();
-  });
+test('It should render a heading with the title prop value', () => {
+  render(
+    <BodySection title="Test Title">
+      <p>Test child</p>
+    </BodySection>
+  );
 
-  it('renders the children passed to it', () => {
-    const { getByText } = render(
-      <BodySection title="Title">
-        <p>Child paragraph</p>
-      </BodySection>
-    );
-    expect(getByText('Child paragraph')).toBeInTheDocument();
-  });
+  const titleEl = screen.getByRole('heading', { name: /test title/i });
+  expect(titleEl).toBeInTheDocument();
+  expect(titleEl.tagName).toBe('H2');
+});
+
+test('It should render any children passed to it', () => {
+  render(
+    <BodySection title="Test Title">
+      <p>Child 1</p>
+      <p>Child 2</p>
+      <p>Child 3</p>
+    </BodySection>
+  );
+
+  expect(screen.getByText('Child 1')).toBeInTheDocument();
+  expect(screen.getByText('Child 2')).toBeInTheDocument();
+  expect(screen.getByText('Child 3')).toBeInTheDocument();
 });
