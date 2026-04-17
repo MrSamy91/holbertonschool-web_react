@@ -1,34 +1,41 @@
-import React from "react";
-import holbertonLogo from "../../assets/holberton-logo.jpg";
+import logo from "../../assets/holberton-logo.jpg";
+import { StyleSheet, css } from "aphrodite";
 
-function Header({ user, logOut }) {
+const styles = StyleSheet.create({
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logo: {
+    height: "30vmin",
+    pointerEvents: "none",
+  },
+  h1: {
+    color: "#e1003c",
+    fontFamily: "Roboto, sans-serif",
+    fontWeight: "bold",
+    fontSize: "2.5rem",
+    margin: 0,
+  },
+  link: {
+    fontFamily: "Roboto, sans-serif",
+    fontSize: "1.2rem",
+    marginLeft: "auto",
+    cursor: "pointer",
+  },
+});
+
+export default function Header({ user, logOut }) {
   return (
-    <header className="App-header flex items-center p-6">
-      <img src={holbertonLogo} className="h-20 w-20" alt="Holberton logo" />
-      <h1 className="text-[var(--main-color)] text-4xl font-bold ml-4">
-        School dashboard
-      </h1>
-
-      {/* Section logout if isLoggedIn */}
-      {user?.isLoggedIn && (
-        <section id="logoutSection" className="ml-auto text-right">
-          <p>
-            Welcome {user.email} (
-            <span
-              onClick={(e) => {
-                e.preventDefault();
-                logOut();
-              }}
-              style={{ cursor: "pointer", color: "blue" }}
-            >
-              logout
-            </span>
-            )
-          </p>
-        </section>
-      )}
-    </header>
+    <div className={css(styles.header)}>
+      <img src={logo} className={css(styles.logo)} alt="holberton logo" />
+      <h1 className={css(styles.h1)}>School Dashboard</h1>
+      {user.isLoggedIn ? (
+        <div id="logoutSection" className={css(styles.logoutSection)}>
+          Welcome <b>{user.email}</b> <a className={css(styles.link)} href="#" onClick={logOut}>(logout)</a>
+        </div>
+      ) : null}
+    </div>
   );
 }
-
-export default Header;
