@@ -1,32 +1,92 @@
-import React, { memo, useEffect } from "react";
+import { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import closeIcon from "../../assets/close-icon.png";
-import NotificationItem from "../NotificationItem/NotificationItem";
 import {
   markNotificationAsRead,
   showDrawer,
   hideDrawer,
-  fetchNotifications,
 } from "../../features/notifications/notificationsSlice";
+import { StyleSheet, css } from "aphrodite";
+import closeIcon from "../../assets/close-icon.png";
+import NotificationItem from "../NotificationItem/NotificationItem";
 
-function Notifications() {
+const opacityAnimation = {
+  from: { opacity: 0.5 },
+  to: { opacity: 1 },
+};
+
+const bounceAnimation = {
+  "0%": { transform: "translateY(0px)" },
+  "50%": { transform: "translateY(-5px)" },
+  "100%": { transform: "translateY(5px)" },
+};
+
+const styles = StyleSheet.create({
+  notificationItems: {
+    position: "relative",
+    border: "3px dotted #e1003c",
+    padding: "5px",
+    fontFamily: "Roboto, sans-serif",
+    width: "25%",
+    float: "right",
+    marginTop: "20px",
+    "@media (max-width: 900px)": {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      border: "none",
+      padding: 0,
+      margin: 0,
+      fontSize: "20px",
+      backgroundColor: "white",
+      zIndex: 1000,
+    },
+  },
+  ul: {
+    "@media (max-width: 900px)": {
+      padding: 0,
+    },
+  },
+  p: {
+    margin: 0,
+    "@media (max-width: 900px)": {
+      fontSize: "20px",
+    },
+  },
+  button: {
+    position: "absolute",
+    cursor: "pointer",
+    right: "calc(0% - 480px)",
+    top: "calc(0% - 480px)",
+    background: "transparent",
+    transform: "scale(0.012)",
+    WebkitTransform: "scale(0.012)",
+    MozTransform: "scale(0.012)",
+    msTransform: "scale(0.012)",
+    OTransform: "scale(0.012)",
+  },
+  menuItem: {
+    float: "right",
+    position: "absolute",
+    right: "10px",
+    top: "-5px",
+    backgroundColor: "#fff8f8",
+    cursor: "pointer",
+    ":hover": {
+      animationName: [opacityAnimation, bounceAnimation],
+      animationDuration: "1s, 0.5s",
+      animationIterationCount: "3, 3",
+    },
+  },
+});
+
+const Notifications = memo(function Notifications() {
   const dispatch = useDispatch();
-
-  // 👉 On va chercher les notifications au montage du composant
-  useEffect(() => {
-    dispatch(fetchNotifications());
-  }, [dispatch]);
-
-  // 📌 Récupération de l'état depuis le slice notifications
-  const notifications = useSelector(
-    (state) => state.notifications.notifications
-  );
-  const displayDrawer = useSelector(
-    (state) => state.notifications.displayDrawer
+  const { notifications, displayDrawer } = useSelector(
+    (state) => state.notifications
   );
 
-  // 📌 Handlers maintenant gérés ici et dispatch vers Redux
   const handleDisplayDrawer = () => {
     dispatch(showDrawer());
   };
@@ -39,89 +99,43 @@ function Notifications() {
     dispatch(markNotificationAsRead(id));
   };
 
-  // --- Styles ---
-  const borderStyle = {
-    borderColor: "var(--main-color)",
-  };
-
-  const titleClassName = `text-right pr-8 pt-2 ${
-    notifications.length > 0 && !displayDrawer ? "animate-bounce" : ""
-  }`;
-
   return (
     <>
-      <div
-        className={`${titleClassName} cursor-pointer`}
-        onClick={handleDisplayDrawer}
-        data-testid="menuItem"
-      >
+      <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
         Your notifications
       </div>
-
       {displayDrawer && (
-        <div
-          className="border-2 border-dashed bg-white p-6 relative float-right mr-8 mt-2 max-w-4xl"
-          style={borderStyle}
-          data-testid="Notifications"
-        >
-          <button
-            onClick={() => {
-              console.log("Close button has been clicked");
-              handleHideDrawer();
-            }}
-            aria-label="Close"
-            className="absolute cursor-pointer right-3 top-3 bg-transparent border-none p-0"
-          >
-            <img src={closeIcon} alt="close icon" className="w-5 h-5" />
-          </button>
-
+        <div className={css(styles.notificationItems)}>
           {notifications.length > 0 ? (
             <>
-              <p className="font-bold mb-3">
-                Here is the list of notifications
-              </p>
-              <ul className="list-disc pl-6 space-y-1">
-                {notifications.map((notification) => (
+              <p className={css(styles.p)}>Here is the list of notifications</p>
+              <button
+                onClick={handleHideDrawer}
+                aria-label="Close"
+                className={css(styles.button)}
+              >
+                <img src={closeIcon} alt="close icon" />
+              </button>
+              <ul className={css(styles.ul)}>
+                {notifications.map((notif) => (
                   <NotificationItem
-                    key={notification.id}
-                    type={notification.type}
-                    value={notification.value}
-                    html={notification.html}
-                    markAsRead={() => handleMarkAsRead(notification.id)}
+                    key={notif.id}
+                    id={notif.id}
+                    type={notif.type}
+                    value={notif.value}
+                    html={notif.html}
+                    markAsRead={handleMarkAsRead}
                   />
                 ))}
               </ul>
             </>
           ) : (
-            <p className="text-center">No new notification for now</p>
+            <p className={css(styles.p)}>No new notifications for now</p>
           )}
         </div>
       )}
     </>
   );
-}
+});
 
-// PropTypes facultatifs, mais ça ne gêne pas
-Notifications.propTypes = {
-  notifications: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      type: PropTypes.string,
-      value: PropTypes.string,
-      html: PropTypes.shape({ __html: PropTypes.string }),
-    })
-  ),
-  displayDrawer: PropTypes.bool,
-};
-
-// 👉 Pour les tests "No unnecessary re-renders", on garde la même logique
-/* eslint-disable no-unused-vars */
-const areEqual = (prevProps, nextProps) => {
-  return (
-    prevProps.notifications.length === nextProps.notifications.length &&
-    prevProps.displayDrawer === nextProps.displayDrawer
-  );
-};
-/* eslint-enable no-unused-vars */
-
-export default memo(Notifications, areEqual);
+export default Notifications;

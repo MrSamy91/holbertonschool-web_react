@@ -1,18 +1,37 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import WithLogging from "../../components/HOC/WithLogging";
-import CourseListRow from "./CourseListRow/CourseListRow";
+import { useSelector } from 'react-redux';
+import { StyleSheet, css } from 'aphrodite';
+import CourseListRow from './CourseListRow/CourseListRow';
+import WithLogging from '../../components/HOC/WithLogging';
+
+const styles = StyleSheet.create({
+  courses: {
+    margin: '130px auto',
+    width: '90%',
+    height: '33vh'
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    border: '2px solid rgb(161, 161, 161)',
+    ':nth-child(1n) th': {
+      border: '2px solid rgb(161, 161, 161)'
+    },
+    ':nth-child(1n) tr': {
+      border: '2px solid rgb(161, 161, 161)'
+    },
+    ':nth-child(1n) td': {
+      border: '2px solid rgb(161, 161, 161)'
+    }
+  }
+});
 
 function CourseList() {
-  // On récupère la liste des cours depuis le slice "courses" du store
-  // On gère les deux cas possibles : state.courses = [] OU state.courses = { courses: [] }
-  const courses =
-    useSelector((state) => state.courses.courses || state.courses) || [];
+  const { courses } = useSelector((state) => state.courses);
 
   return (
-    <div className="mx-auto my-32 w-[80%] md:w-[85%] lg:w-[90%]">
+    <div className={css(styles.courses)}>
       {courses.length > 0 ? (
-        <table id="CourseList" className="w-full border-collapse">
+        <table id='CourseList' className={css(styles.table)}>
           <thead>
             <CourseListRow
               textFirstCell="Available courses"
@@ -25,7 +44,7 @@ function CourseList() {
             />
           </thead>
           <tbody>
-            {courses.map((course) => (
+            {courses.map(course => (
               <CourseListRow
                 key={course.id}
                 textFirstCell={course.name}
@@ -35,7 +54,7 @@ function CourseList() {
           </tbody>
         </table>
       ) : (
-        <table id="CourseList" className="w-full border-collapse">
+        <table id='CourseList' className={css(styles.table)}>
           <thead>
             <CourseListRow
               isHeader={true}
@@ -48,4 +67,5 @@ function CourseList() {
   );
 }
 
-export default WithLogging(CourseList);
+const CourseListWithLogging = WithLogging(CourseList);
+export default CourseListWithLogging;
